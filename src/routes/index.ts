@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { workoutRouter } from './workout.routes.js';
+
 export const router = Router();
 
 router.get('/health', (_, res) => {
@@ -7,3 +9,5 @@ router.get('/health', (_, res) => {
     status: 'ok',
   });
 });
+
+router.use('/workouts', workoutRouter);
