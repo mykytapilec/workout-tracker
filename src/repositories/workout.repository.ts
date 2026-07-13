@@ -9,6 +9,10 @@ export class WorkoutRepository {
     return this.workouts;
   }
 
+  public findById(id: string): Workout | undefined {
+    return this.workouts.find((workout) => workout.id === id);
+  }
+
   public create(data: CreateWorkoutInput): Workout {
     const workout: Workout = {
       id: randomUUID(),

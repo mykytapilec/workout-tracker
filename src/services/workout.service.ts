@@ -9,6 +9,10 @@ export class WorkoutService {
   public create(data: CreateWorkoutInput): Workout {
     return workoutRepository.create(data);
   }
+
+  public getById(id: string): Workout | undefined {
+    return workoutRepository.findById(id);
+  }
 }
 
 export const workoutService = new WorkoutService();
