@@ -1,6 +1,12 @@
 import { Router } from 'express';
 
-import { createWorkout, getWorkoutById, getWorkouts } from '../controllers/workout.controller.js';
+import {
+  createWorkout,
+  getWorkoutById,
+  getWorkouts,
+  updateWorkout,
+  deleteWorkout,
+} from '../controllers/workout.controller.js';
 import { validate } from '../middlewares/validate.middleware.js';
 import { createWorkoutSchema } from '../validators/workout.validator.js';
 
@@ -11,3 +17,7 @@ workoutRouter.get('/', getWorkouts);
 workoutRouter.get('/:id', getWorkoutById);
 
 workoutRouter.post('/', validate(createWorkoutSchema), createWorkout);
+
+workoutRouter.put('/:id', validate(createWorkoutSchema), updateWorkout);
+
+workoutRouter.delete('/:id', deleteWorkout);

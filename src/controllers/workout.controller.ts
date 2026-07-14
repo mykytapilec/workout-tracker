@@ -39,3 +39,57 @@ export const getWorkoutById: RequestHandler = (req, res) => {
 
   res.status(200).json(workout);
 };
+
+export const updateWorkout: RequestHandler = (req, res) => {
+  const { id } = req.params;
+
+  if (!id || Array.isArray(id)) {
+    res.status(400).json({
+      status: 'error',
+      message: 'Invalid workout id',
+    });
+
+    return;
+  }
+
+  const workout = workoutService.update(id, req.body);
+
+  if (!workout) {
+    res.status(404).json({
+      status: 'error',
+      message: 'Workout not found',
+    });
+
+    return;
+  }
+
+  res.status(200).json(workout);
+};
+
+export const deleteWorkout: RequestHandler = (req, res) => {
+  const { id } = req.params;
+
+  if (!id || Array.isArray(id)) {
+    res.status(400).json({
+      status: 'error',
+      message: 'Invalid workout id',
+    });
+
+    return;
+  }
+
+  const deleted = workoutService.delete(id);
+
+  if (!deleted) {
+    res.status(404).json({
+      status: 'error',
+      message: 'Workout not found',
+    });
+
+    return;
+  }
+
+  res.status(200).json({
+    message: 'Workout deleted successfully',
+  });
+};
