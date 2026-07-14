@@ -24,6 +24,30 @@ export class WorkoutRepository {
 
     return workout;
   }
+
+  public update(id: string, data: CreateWorkoutInput): Workout | undefined {
+    const workout = this.findById(id);
+
+    if (!workout) {
+      return undefined;
+    }
+
+    workout.name = data.name;
+
+    return workout;
+  }
+
+  public delete(id: string): boolean {
+    const index = this.workouts.findIndex((workout) => workout.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    this.workouts.splice(index, 1);
+
+    return true;
+  }
 }
 
 export const workoutRepository = new WorkoutRepository();
