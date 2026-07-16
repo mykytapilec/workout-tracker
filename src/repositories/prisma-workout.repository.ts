@@ -1,5 +1,4 @@
 import { prisma } from '../database/prisma.js';
-
 import { CreateWorkoutInput, Workout } from '../types/workout.types.js';
 
 export class PrismaWorkoutRepository {
@@ -23,7 +22,7 @@ export class PrismaWorkoutRepository {
     });
   }
 
-  public async update(id: string, data: CreateWorkoutInput): Promise<Workout | null> {
+  public async update(id: string, data: CreateWorkoutInput): Promise<Workout> {
     return prisma.workout.update({
       where: {
         id,
