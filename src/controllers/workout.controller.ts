@@ -2,19 +2,19 @@ import { RequestHandler } from 'express';
 
 import { workoutService } from '../services/workout.service.js';
 
-export const getWorkouts: RequestHandler = (_req, res) => {
-  const workouts = workoutService.getAll();
+export const getWorkouts: RequestHandler = async (_req, res) => {
+  const workouts = await workoutService.getAll();
 
   res.status(200).json(workouts);
 };
 
-export const createWorkout: RequestHandler = (req, res) => {
-  const workout = workoutService.create(req.body);
+export const createWorkout: RequestHandler = async (req, res) => {
+  const workout = await workoutService.create(req.body);
 
   res.status(201).json(workout);
 };
 
-export const getWorkoutById: RequestHandler = (req, res) => {
+export const getWorkoutById: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
   if (!id || Array.isArray(id)) {
@@ -26,7 +26,7 @@ export const getWorkoutById: RequestHandler = (req, res) => {
     return;
   }
 
-  const workout = workoutService.getById(id);
+  const workout = await workoutService.getById(id);
 
   if (!workout) {
     res.status(404).json({
@@ -40,7 +40,7 @@ export const getWorkoutById: RequestHandler = (req, res) => {
   res.status(200).json(workout);
 };
 
-export const updateWorkout: RequestHandler = (req, res) => {
+export const updateWorkout: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
   if (!id || Array.isArray(id)) {
@@ -52,7 +52,7 @@ export const updateWorkout: RequestHandler = (req, res) => {
     return;
   }
 
-  const workout = workoutService.update(id, req.body);
+  const workout = await workoutService.update(id, req.body);
 
   if (!workout) {
     res.status(404).json({
@@ -66,7 +66,7 @@ export const updateWorkout: RequestHandler = (req, res) => {
   res.status(200).json(workout);
 };
 
-export const deleteWorkout: RequestHandler = (req, res) => {
+export const deleteWorkout: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
   if (!id || Array.isArray(id)) {
@@ -78,7 +78,7 @@ export const deleteWorkout: RequestHandler = (req, res) => {
     return;
   }
 
-  const deleted = workoutService.delete(id);
+  const deleted = await workoutService.delete(id);
 
   if (!deleted) {
     res.status(404).json({

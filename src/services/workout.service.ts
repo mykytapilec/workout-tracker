@@ -1,25 +1,25 @@
-import { workoutRepository } from '../repositories/workout.repository.js';
+import { prismaWorkoutRepository } from '../repositories/prisma-workout.repository.js';
 import { CreateWorkoutInput, Workout } from '../types/workout.types.js';
 
 export class WorkoutService {
-  public getAll(): Workout[] {
-    return workoutRepository.findAll();
+  public async getAll(): Promise<Workout[]> {
+    return prismaWorkoutRepository.findAll();
   }
 
-  public create(data: CreateWorkoutInput): Workout {
-    return workoutRepository.create(data);
+  public async create(data: CreateWorkoutInput): Promise<Workout> {
+    return prismaWorkoutRepository.create(data);
   }
 
-  public getById(id: string): Workout | undefined {
-    return workoutRepository.findById(id);
+  public async getById(id: string): Promise<Workout | null> {
+    return prismaWorkoutRepository.findById(id);
   }
 
-  public update(id: string, data: CreateWorkoutInput): Workout | undefined {
-    return workoutRepository.update(id, data);
+  public async update(id: string, data: CreateWorkoutInput): Promise<Workout | null> {
+    return prismaWorkoutRepository.update(id, data);
   }
 
-  public delete(id: string): boolean {
-    return workoutRepository.delete(id);
+  public async delete(id: string): Promise<boolean> {
+    return prismaWorkoutRepository.delete(id);
   }
 }
 
