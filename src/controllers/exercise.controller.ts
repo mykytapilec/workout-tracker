@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 
+import { createExerciseSchema, updateExerciseSchema } from '../schemas/exercise.schema.js';
 import { exerciseService } from '../services/exercise.service.js';
 
 export const getExercisesByWorkoutId: RequestHandler = async (req, res) => {
@@ -31,7 +32,9 @@ export const createExercise: RequestHandler = async (req, res) => {
     return;
   }
 
-  const exercise = await exerciseService.create(workoutId, req.body);
+  const data = createExerciseSchema.parse(req.body);
+
+  const exercise = await exerciseService.create(workoutId, data);
 
   res.status(201).json(exercise);
 };
@@ -74,7 +77,9 @@ export const updateExercise: RequestHandler = async (req, res) => {
     return;
   }
 
-  const exercise = await exerciseService.update(id, req.body);
+  const data = updateExerciseSchema.parse(req.body);
+
+  const exercise = await exerciseService.update(id, data);
 
   if (!exercise) {
     res.status(404).json({

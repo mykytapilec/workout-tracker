@@ -1,4 +1,6 @@
-import { PrismaClientKnownRequestError } from '../generated/prisma/internal/prismaNamespace.js';
+import { Prisma } from '../generated/prisma/client.js';
+import { ZodError } from 'zod';
+
 import { NextFunction, Request, Response } from 'express';
 
 export const errorMiddleware = (
@@ -9,11 +11,21 @@ export const errorMiddleware = (
 ): void => {
   console.error(error);
 
-  if (error instanceof PrismaClientKnownRequestError) {
+  if (error instanceof ZodError) {
+    res.status(400).json({
+      status: 'error',
+      message: 'Validation failed',
+      errors: error.issues,
+    });
+
+    return;
+  }
+
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
     if (error.code === 'P2025') {
       res.status(404).json({
         status: 'error',
-        message: 'Workout not found',
+        message: 'Resource not found',
       });
 
       return;
