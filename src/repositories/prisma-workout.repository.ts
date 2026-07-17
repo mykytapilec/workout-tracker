@@ -1,9 +1,23 @@
 import { prisma } from '../database/prisma.js';
+
 import { CreateWorkoutInput, Workout } from '../types/workout.types.js';
 
 export class PrismaWorkoutRepository {
   public async findAll(): Promise<Workout[]> {
-    return prisma.workout.findMany();
+    return prisma.workout.findMany({
+      include: {
+        exercises: true,
+      },
+    });
+  }
+
+  public async create(data: CreateWorkoutInput): Promise<Workout> {
+    return prisma.workout.create({
+      data,
+      include: {
+        exercises: true,
+      },
+    });
   }
 
   public async findById(id: string): Promise<Workout | null> {
@@ -11,24 +25,20 @@ export class PrismaWorkoutRepository {
       where: {
         id,
       },
-    });
-  }
-
-  public async create(data: CreateWorkoutInput): Promise<Workout> {
-    return prisma.workout.create({
-      data: {
-        name: data.name,
+      include: {
+        exercises: true,
       },
     });
   }
 
-  public async update(id: string, data: CreateWorkoutInput): Promise<Workout> {
+  public async update(id: string, data: CreateWorkoutInput): Promise<Workout | null> {
     return prisma.workout.update({
       where: {
         id,
       },
-      data: {
-        name: data.name,
+      data,
+      include: {
+        exercises: true,
       },
     });
   }
