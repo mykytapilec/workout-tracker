@@ -1,0 +1,95 @@
+openapi: 3.0.3
+
+info:
+  title: Workout Tracker API
+  version: 1.0.0
+  description: REST API for managing workouts and exercises.
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /workouts:
+    get:
+      summary: Get all workouts
+      responses:
+        "200":
+          description: List of workouts
+
+    post:
+      summary: Create workout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+
+      responses:
+        "201":
+          description: Workout created
+
+  /workouts/{id}:
+    get:
+      summary: Get workout by id
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Workout
+
+    put:
+      summary: Update workout
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Updated workout
+
+    delete:
+      summary: Delete workout
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Deleted
+
+  /workouts/{workoutId}/exercises:
+    get:
+      summary: Get exercises for workout
+
+    post:
+      summary: Create exercise
+
+  /exercises/{id}:
+    get:
+      summary: Get exercise
+
+    put:
+      summary: Update exercise
+
+    delete:
+      summary: Delete exercise
