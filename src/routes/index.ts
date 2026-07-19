@@ -5,9 +5,10 @@ import exerciseRoutes from './exercise.routes.js';
 
 export const router = Router();
 
-router.get('/health', (_, res) => {
+router.get('/health', (_req, res) => {
   res.status(200).json({
     status: 'ok',
+    timestamp: new Date().toISOString(),
   });
 });
 
