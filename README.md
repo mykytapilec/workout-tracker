@@ -4,7 +4,7 @@ A RESTful API for managing workouts and exercises built with Node.js, Express, T
 
 This project is based on the **Workout Tracker** backend project from roadmap.sh:
 
-https://roadmap.sh/projects/workout-tracker-api
+https://roadmap.sh/projects/fitness-workout-tracker
 
 ---
 
